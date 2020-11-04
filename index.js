@@ -1,6 +1,6 @@
 function init() {
 	const calendar = CalendarApp.getDefaultCalendar();
-	const events = getFutureEventsUntilDays(calendar, 50);
+	const events = getFutureEventsUntilDays(calendar, 100);
 
 	events.forEach(emotify);
 }
@@ -31,6 +31,16 @@ function emotify(event) {
 	if (event.getTitle().indexOf('Spelletjes') === 0) {
 		console.log('Add 🎲 to ' + event.getTitle());
 		event.setTitle('🎲 ' + event.getTitle());
+	}
+
+	if (event.getTitle().indexOf('Eten') === 0) {
+		console.log('Add 🍟 to ' + event.getTitle());
+		event.setTitle('🍟 ' + event.getTitle());
+	}
+
+	if (event.getTitle().indexOf('Kapper') === 0) {
+		console.log('Add 💇 to ' + event.getTitle());
+		event.setTitle('💇 ' + event.getTitle());
 	}
 }
 

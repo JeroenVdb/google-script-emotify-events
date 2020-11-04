@@ -1,5 +1,4 @@
 const rewire = require('rewire');
-const assert = require('assert');
 
 const app = rewire('./index.js');
 
@@ -23,13 +22,15 @@ var eventFoo = createMockedEvent('Foo');
 var eventTrain = createMockedEvent('Trein');
 var eventRunning = createMockedEvent('Lopen');
 var eventGaming = createMockedEvent('Spelletjesavond');
+var eventFood = createMockedEvent('Eten bij brasserie Julie');
+var eventKapper = createMockedEvent('Kapper');
 
 CalendarMock = {
 	getName: function() {
 		return "GmailDefaultCalendar"
 	},
 	getEvents: function(start, end) {
-		return [eventFoo, eventTrain, eventRunning, eventGaming]
+		return [eventFoo, eventTrain, eventRunning, eventGaming, eventFood, eventKapper]
 	}
 };
 
@@ -42,25 +43,37 @@ CalendarAppMock = {
 app.__set__('CalendarApp', CalendarAppMock);
 
 describe('Emotify train events', function() {
-	it('Should find 4 calendar items', function() {
-		assert.equal(getFutureEventsUntilDays(CalendarMock, 0).length, 4)
+	it('Should find 6 calendar items', function() {
+		expect(getFutureEventsUntilDays(CalendarMock, 0).length).toBe(6);
 	});
 
 	it('Should emotify train calendar items', function() {
 		init();
-		var events = CalendarMock.getEvents();
-		assert.equal(events[1].title, '🚂 Trein')
+		const events = CalendarMock.getEvents();
+		expect(events[1].title).toBe('🚂 Trein');
 	});
 
 	it('Should emotify lopen calendar items', function() {
 		init();
-		var events = CalendarMock.getEvents();
-		assert.equal(events[2].title, '🏃 Lopen')
+		const events = CalendarMock.getEvents();
+		expect(events[2].title).toBe('🏃 Lopen');
 	});
 
 	it('Should emotify spelletjesvaond calendar items', function() {
 		init();
-		var events = CalendarMock.getEvents();
-		assert.equal(events[3].title, '🎲 Spelletjesavond')
+		const events = CalendarMock.getEvents();
+		expect(events[3].title).toBe('🎲 Spelletjesavond');
+	});
+
+	it('Should emotify food calendar items', function() {
+		init();
+		const events = CalendarMock.getEvents();
+		expect(events[4].title).toBe('🍟 Eten bij brasserie Julie');
+	});
+
+	it('Should emotify food calendar items', function() {
+		init();
+		const events = CalendarMock.getEvents();
+		expect(events[5].title).toBe('💇 Kapper');
 	});
 });
