@@ -26,6 +26,7 @@ var eventGaming = createMockedEvent('Spelletjesavond');
 var eventFood = createMockedEvent('Eten bij brasserie Julie');
 var eventKapper = createMockedEvent('Kapper');
 var eventDoctor = createMockedEvent('Bij de dokter');
+var eventDentist = createMockedEvent('Naar de tandarts');
 var eventMil = createMockedEvent('Mil naar Dino World');
 var eventMax = createMockedEvent('Max naar Dino World');
 var eventMilToDoctor = createMockedEvent('Met Mil naar de dokter');
@@ -35,7 +36,7 @@ CalendarMock = {
 		return "GmailDefaultCalendar"
 	},
 	getEvents: function(start, end) {
-		return [eventFoo, eventTrain, eventRunning, eventGaming, eventFood, eventKapper, eventDoctor, eventMil, eventMax, eventMilToDoctor]
+		return [eventFoo, eventTrain, eventRunning, eventGaming, eventFood, eventKapper, eventDoctor, eventDentist, eventMil, eventMax, eventMilToDoctor]
 	}
 };
 
@@ -49,7 +50,7 @@ app.__set__('CalendarApp', CalendarAppMock);
 
 describe('Emotify train events', function() {
 	it('Should find 10 calendar items', function() {
-		expect(getFutureEventsUntilDays(CalendarMock, 0).length).toBe(10);
+		expect(getFutureEventsUntilDays(CalendarMock, 0).length).toBe(11);
 	});
 
 	it('Should emotify train calendar items', function() {
@@ -88,16 +89,28 @@ describe('Emotify train events', function() {
 		expect(events[6].title).toBe('🩺 Bij de dokter');
 	});
 
+	it('Should emotify dentist calendar items', function() {
+		init();
+		const events = CalendarMock.getEvents();
+		expect(events[7].title).toBe('🦷 Naar de tandarts');
+	});
+
 	it('Should emotify Mil calendar items', function() {
 		init();
 		const events = CalendarMock.getEvents();
-		expect(events[7].title).toBe('👶 Mil naar Dino World');
+		expect(events[8].title).toBe('👶 Mil naar Dino World');
 	});
 
 	it('Should emotify Max calendar items', function() {
 		init();
 		const events = CalendarMock.getEvents();
-		expect(events[8].title).toBe('👶 Max naar Dino World');
+		expect(events[9].title).toBe('👶 Max naar Dino World');
+	});
+
+	it('Should handle double events Mil to the doctor, first match is used', function() {
+		init();
+		const events = CalendarMock.getEvents();
+		expect(events[10].title).toBe('🩺 Met Mil naar de dokter');
 	});
 });
 

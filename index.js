@@ -48,6 +48,11 @@ function emotify(event) {
 		event.setTitle('🩺 ' + event.getTitle());
 	}
 
+	if (event.getTitle().indexOf('tandarts') > -1 && doesNotStartsWithEmoji(event.getTitle())) {
+		console.log('Add 🦷 to ' + event.getTitle());
+		event.setTitle('🦷 ' + event.getTitle());
+	}
+
 	if (event.getTitle().indexOf('Mil') > -1 && doesNotStartsWithEmoji(event.getTitle())) {
 		console.log('Add 👶 to ' + event.getTitle());
 		event.setTitle('👶 ' + event.getTitle());
