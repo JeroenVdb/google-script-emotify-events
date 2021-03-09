@@ -18,30 +18,51 @@ function getFutureEventsUntilDays(calendar, days) {
 function emotify(event) {
 	console.log('emotify event with name: ' + event.getTitle());
 
-	if (event.getTitle().indexOf('Trein') === 0) {
+	if (event.getTitle().indexOf('Trein') > -1 && doesNotStartsWithEmoji(event.getTitle())) {
 		console.log('Add 🚂 to ' + event.getTitle());
 		event.setTitle('🚂 ' + event.getTitle());
 	}
 
-	if (event.getTitle().indexOf('Lopen') === 0) {
+	if (event.getTitle().indexOf('Lopen') > -1 && doesNotStartsWithEmoji(event.getTitle())) {
 		console.log('Add 🏃 to ' + event.getTitle());
 		event.setTitle('🏃 ' + event.getTitle());
 	}
 
-	if (event.getTitle().indexOf('Spelletjes') === 0) {
+	if (event.getTitle().indexOf('Spelletjes') > -1 && doesNotStartsWithEmoji(event.getTitle())) {
 		console.log('Add 🎲 to ' + event.getTitle());
 		event.setTitle('🎲 ' + event.getTitle());
 	}
 
-	if (event.getTitle().indexOf('Eten') === 0) {
+	if (event.getTitle().indexOf('Eten') > -1 && doesNotStartsWithEmoji(event.getTitle())) {
 		console.log('Add 🍟 to ' + event.getTitle());
 		event.setTitle('🍟 ' + event.getTitle());
 	}
 
-	if (event.getTitle().indexOf('Kapper') === 0) {
+	if (event.getTitle().indexOf('Kapper') > -1 && doesNotStartsWithEmoji(event.getTitle())) {
 		console.log('Add 💇 to ' + event.getTitle());
 		event.setTitle('💇 ' + event.getTitle());
 	}
+
+	if (event.getTitle().indexOf('dokter') > -1 && doesNotStartsWithEmoji(event.getTitle())) {
+		console.log('Add 🩺 to ' + event.getTitle());
+		event.setTitle('🩺 ' + event.getTitle());
+	}
+
+	if (event.getTitle().indexOf('Mil') > -1 && doesNotStartsWithEmoji(event.getTitle())) {
+		console.log('Add 👶 to ' + event.getTitle());
+		event.setTitle('👶 ' + event.getTitle());
+	}
+
+	if (event.getTitle().indexOf('Max') > -1 && doesNotStartsWithEmoji(event.getTitle())) {
+		console.log('Add 👶 to ' + event.getTitle());
+		event.setTitle('👶 ' + event.getTitle());
+	}
+}
+
+function doesNotStartsWithEmoji(str) {
+	return Boolean(
+		str.charAt(0).match(/[A-Z]/i)
+	)
 }
 
 Date.prototype.addDays = function(days) {
